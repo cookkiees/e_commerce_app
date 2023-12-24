@@ -1,0 +1,1 @@
+enum FirebaseType { authentication, firestore }

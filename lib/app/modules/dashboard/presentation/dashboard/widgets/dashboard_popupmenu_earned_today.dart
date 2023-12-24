@@ -1,0 +1,41 @@
+import 'package:e_commerce_app/app/common/extensions/app_text_extension.dart';
+import 'package:e_commerce_app/app/config/themes/app_colors.dart';
+import 'package:flutter/material.dart';
+
+enum PopupMenuActionEarnedToday { reset }
+
+extension EarnedTodayExtension on PopupMenuActionEarnedToday {
+  String get name {
+    switch (this) {
+      case PopupMenuActionEarnedToday.reset:
+        return 'Reset';
+      default:
+        return '';
+    }
+  }
+}
+
+class PopupMenuEarnedTodayWidget extends StatelessWidget {
+  const PopupMenuEarnedTodayWidget({super.key, this.onSelected});
+  final void Function(PopupMenuActionEarnedToday)? onSelected;
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<PopupMenuActionEarnedToday>(
+      onSelected: onSelected,
+      surfaceTintColor: Colors.white,
+      position: PopupMenuPosition.under,
+      padding: EdgeInsets.zero,
+      color: Colors.white,
+      iconSize: 16,
+      icon: const Icon(Icons.more_vert, color: AppColors.primary),
+      itemBuilder: (BuildContext context) {
+        return PopupMenuActionEarnedToday.values.map((e) {
+          return PopupMenuItem<PopupMenuActionEarnedToday>(
+            value: e,
+            child: e.name.asSubtitleNormal(),
+          );
+        }).toList();
+      },
+    );
+  }
+}
